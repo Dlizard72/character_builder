@@ -8,12 +8,35 @@
     <h1>Character Sheet</h1>
 
     <form method="POST">
+      {% if name %}
+      <input type="hidden" name="name" value="{{ name }}" />
+      {% else %}
+      <label for="name">Name:</label>
+      <input type="text" name="name" required />
+      {% endif %} {% if race %}
+      <input type="hidden" name="race" value="{{ race }}" />
+      {% else %}
+      <label for="race">race</label>
+      <input type="text" name="race" required />
+      {% endif %}
       <button type="submit">Roll</button>
     </form>
 
     <h2>Attributes</h2>
     {% if stats %}
     <table>
+      <tr>
+        Name: {{ name }}
+      </tr>
+      <tr>
+        Race: {{ race }}
+      </tr>
+      <tr>
+        BackGround:
+      </tr>
+      <tr>
+        Class:
+      </tr>
       <tr>
         <td>Str Score: {{ stats.Str }}</td>
         <td>Int Score: {{ stats.Int }}</td>
