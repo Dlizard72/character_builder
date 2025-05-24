@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Roll a Die</title>
+  </head>
+  <body>
+    <h1>Character Sheet</h1>
+
+    <form method="POST">
+      <button type="submit">Roll</button>
+    </form>
+
+    <h2>Attributes</h2>
+    {% if stats %}
+    <table>
+      <tr>
+        <td>Str Score: {{ stats.Str }}</td>
+        <td>Int Score: {{ stats.Int }}</td>
+        <td>Wis Score: {{ stats.Wis }}</td>
+        <td>Dex Score: {{ stats.Dex }}</td>
+        <td>Con Score: {{ stats.Con }}</td>
+        <td>Cha Score: {{ stats.Cha }}</td>
+      </tr>
+    </table>
+    {% endif %}
+  </body>
+</html>
