@@ -8,35 +8,64 @@
     <h1>Character Sheet</h1>
 
     <form method="POST">
-      {% if name %}
+      {% if not editing %}
+      <p>Name: {{ name }}</p>
       <input type="hidden" name="name" value="{{ name }}" />
-      {% else %}
-      <label for="name">Name:</label>
-      <input type="text" name="name" required />
-      {% endif %} {% if race %}
+
+      <p>Race: {{ race }}</p>
       <input type="hidden" name="race" value="{{ race }}" />
-      {% else %}
-      <label for="race">race</label>
-      <input type="text" name="race" required />
+
+      <p>Class: {{ Class }}</p>
+      <input type="hidden" name="Class" value="{{ Class }}" />
+
+      <p>Background: {{ background }}</p>
+      <input type="hidden" name="background" value="{{ background }}" />
+
+      {% if stats %}
+      <!-- Preserve stat values -->
+      <input type="hidden" name="Str" value="{{ stats.Str }}" />
+      <input type="hidden" name="Int" value="{{ stats.Int }}" />
+      <input type="hidden" name="Wis" value="{{ stats.Wis }}" />
+      <input type="hidden" name="Dex" value="{{ stats.Dex }}" />
+      <input type="hidden" name="Con" value="{{ stats.Con }}" />
+      <input type="hidden" name="Cha" value="{{ stats.Cha }}" />
       {% endif %}
-      <button type="submit">Roll</button>
+
+      <button type="submit" name="action" value="roll">Roll</button>
+      <button type="submit" name="action" value="edit">Edit</button>
+
+      {% else %}
+      <!-- Editable fields when editing -->
+      <label>Name: <input type="text" name="name" value="{{ name }}" /></label
+      ><br />
+      <label>Race: <input type="text" name="race" value="{{ race }}" /></label
+      ><br />
+      <label
+        >Class: <input type="text" name="Class" value="{{ Class }}" /></label
+      ><br />
+      <label
+        >Background:
+        <input type="text" name="background" value="{{ background }}" /></label
+      ><br />
+
+      {% if stats %}
+      <!-- Preserve stat values even while editing text fields -->
+      <input type="hidden" name="Str" value="{{ stats.Str }}" />
+      <input type="hidden" name="Int" value="{{ stats.Int }}" />
+      <input type="hidden" name="Wis" value="{{ stats.Wis }}" />
+      <input type="hidden" name="Dex" value="{{ stats.Dex }}" />
+      <input type="hidden" name="Con" value="{{ stats.Con }}" />
+      <input type="hidden" name="Cha" value="{{ stats.Cha }}" />
+      {% endif %}
+
+      <!-- ✅ Save button goes here -->
+      <button type="submit" name="action" value="save">Save</button>
+      {% endif %}
     </form>
 
     <h2>Attributes</h2>
     {% if stats %}
     <table>
-      <tr>
-        Name: {{ name }}
-      </tr>
-      <tr>
-        Race: {{ race }}
-      </tr>
-      <tr>
-        BackGround:
-      </tr>
-      <tr>
-        Class:
-      </tr>
       <tr>
         <td>Str Score: {{ stats.Str }}</td>
         <td>Int Score: {{ stats.Int }}</td>
