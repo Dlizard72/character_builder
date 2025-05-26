@@ -1,8 +1,40 @@
 from flask import render_template, request
 from flask import Flask
 from creation import *
+import json
+import os
+
 app = Flask(__name__)
-saved_characters = {}
+DATA_FILE = "characters.json"
+
+def load_characters():
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "r") as f:
+            data = json.load(f)
+            # Convert back into Attributes objects
+            for char in data.values():
+                stats_dict = char.get("stats", {})
+                char["stats"] = Attributes(**stats_dict)
+            return data
+    else:
+        return {}
+
+saved_characters = load_characters()
+
+def save_characters():
+    # Convert Attributes to dict before saving
+    to_save = {}
+    for name, char in saved_characters.items():
+        to_save[name] = {
+            "name": char["name"],
+            "race": char["race"],
+            "Class": char["Class"],
+            "background": char["background"],
+            "stats": char["stats"].__dict__  # Convert Attributes to plain dict
+        }
+    with open(DATA_FILE, "w") as f:
+        json.dump(to_save, f, indent=2)
+
 
 @app.route("/", methods=["GET", "Post"])
 def home():
@@ -34,15 +66,17 @@ def home():
         )
         elif action == "save_character":
             stats = get_stats_from_form()
-            saved_characters[name] = {
-            "name": name,
-            "race": race,
-            "Class": Class,
-            "background": background,
-            "stats": stats
-            }
+            if name:
+                saved_characters[name] = {
+                "name": name,
+                "race": race,
+                "Class": Class,
+                "background": background,
+                "stats": stats
+                }
+            save_characters()
         elif action == "load":
-            selected = request.form.get("selected_character")
+            selected = request.form.get("selected_character", "").strip()
             selected = selected.strip() if selected else None
             char = saved_characters.get(selected)
             if char:
