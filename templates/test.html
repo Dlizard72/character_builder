@@ -6,7 +6,15 @@
   </head>
   <body>
     <h1>Character Sheet</h1>
-
+    <form method="POST">
+      <label for="selected_character">Load Character:</label>
+      <select name="selected_character">
+        {% for char_name in saved_characters.keys() %}
+        <option value="{{ char_name }}">{{ char_name }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" name="action" value="load">Load</button>
+    </form>
     <form method="POST">
       {% if not editing %}
       <p>Name: {{ name }}</p>
@@ -33,6 +41,9 @@
 
       <button type="submit" name="action" value="roll">Roll</button>
       <button type="submit" name="action" value="edit">Edit</button>
+      <button type="submit" name="action" value="save_character">
+        Save Character
+      </button>
 
       {% else %}
       <!-- Editable fields when editing -->
