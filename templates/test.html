@@ -29,17 +29,36 @@
       <p>Background: {{ background }}</p>
       <input type="hidden" name="background" value="{{ background }}" />
 
-      {% if stats %}
-      <!-- Preserve stat values -->
+      {% if stats %} {% if editing_stats %}
+      <label
+        >Str: <input type="number" name="Str" value="{{ stats.Str }}" /></label
+      ><br />
+      <label
+        >Int: <input type="number" name="Int" value="{{ stats.Int }}" /></label
+      ><br />
+      <label
+        >Wis: <input type="number" name="Wis" value="{{ stats.Wis }}" /></label
+      ><br />
+      <label
+        >Dex: <input type="number" name="Dex" value="{{ stats.Dex }}" /></label
+      ><br />
+      <label
+        >Con: <input type="number" name="Con" value="{{ stats.Con }}" /></label
+      ><br />
+      <label
+        >Cha: <input type="number" name="Cha" value="{{ stats.Cha }}" /></label
+      ><br />
+      <button type="submit" name="action" value="save">Save</button>
+      {% else %}
+      <!-- show hidden inputs if not editing -->
       <input type="hidden" name="Str" value="{{ stats.Str }}" />
       <input type="hidden" name="Int" value="{{ stats.Int }}" />
       <input type="hidden" name="Wis" value="{{ stats.Wis }}" />
       <input type="hidden" name="Dex" value="{{ stats.Dex }}" />
       <input type="hidden" name="Con" value="{{ stats.Con }}" />
       <input type="hidden" name="Cha" value="{{ stats.Cha }}" />
-      {% endif %}
+      {% endif %} {% endif %}
 
-      <button type="submit" name="action" value="roll">Roll</button>
       <button type="submit" name="action" value="edit">Edit</button>
       <button type="submit" name="action" value="save_character">
         Save Character
@@ -75,6 +94,9 @@
     </form>
 
     <h2>Attributes</h2>
+    <form method="POST">
+      <button type="submit" name="action" value="roll">Roll</button>
+    </form>
     {% if stats %}
     <table>
       <tr>
@@ -86,6 +108,23 @@
         <td>Cha Score: {{ stats.Cha }}</td>
       </tr>
     </table>
+    <form method="POST">
+      <!-- Hidden fields to preserve stats -->
+      <input type="hidden" name="Str" value="{{ stats.Str }}" />
+      <input type="hidden" name="Int" value="{{ stats.Int }}" />
+      <input type="hidden" name="Wis" value="{{ stats.Wis }}" />
+      <input type="hidden" name="Dex" value="{{ stats.Dex }}" />
+      <input type="hidden" name="Con" value="{{ stats.Con }}" />
+      <input type="hidden" name="Cha" value="{{ stats.Cha }}" />
+
+      <!-- You can also preserve name/race/etc. if needed -->
+      <input type="hidden" name="name" value="{{ name }}" />
+      <input type="hidden" name="race" value="{{ race }}" />
+      <input type="hidden" name="Class" value="{{ Class }}" />
+      <input type="hidden" name="background" value="{{ background }}" />
+
+      <button type="submit" name="action" value="change">Change Stats</button>
+    </form>
     {% endif %}
   </body>
 </html>

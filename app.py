@@ -44,6 +44,7 @@ def home():
     background = None
     Class = None
     editing = False
+    editing_stats = False
     if request.method == "POST":
         action = request.form.get("action")
         name = request.form.get("name")
@@ -85,7 +86,13 @@ def home():
                 Class = char["Class"]
                 background = char["background"]
                 stats = char["stats"]
-    return render_template("test.html",stats=stats,name=name,race=race,background=background,Class=Class,editing=editing,saved_characters=saved_characters)
+        elif action == "change":
+            editing_stats = True
+            if all(request.form.get(k) for k in ["Str", "Int", "Wis", "Dex", "Con", "Cha"]):
+                stats = get_stats_from_form()
+            
+            
+    return render_template("test.html",stats=stats,name=name,race=race,background=background,Class=Class,editing=editing,editing_stats=editing_stats,saved_characters=saved_characters)
     
 def get_stats_from_form():
     return Attributes(
