@@ -70,11 +70,13 @@
       ><br />
       <label>Race: <input type="text" name="race" value="{{ race }}" /></label
       ><br />
-      <label
-        >Class: <input type="text" name="Class" value="{{ Class }}" /></label
-      ><br />
-      <label
-        >Background:
+      <label for="Class">Class:</label>
+      <select name="Class" id="Class">
+      {% for c in classes %}
+      <option value="{{ c }}" {% if c == Class %}selected{% endif %}>{{ c }}</option>
+      {% endfor %}
+      </select><br />
+        Background:
         <input type="text" name="background" value="{{ background }}" /></label
       ><br />
 

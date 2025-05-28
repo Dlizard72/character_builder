@@ -42,7 +42,10 @@ def home():
     name = None
     race = None
     background = None
-    Class = None
+    classes = [
+        "Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk",
+        "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard", "Artificer"
+    ]
     editing = False
     editing_stats = False
     proficiency = 2
@@ -93,8 +96,22 @@ def home():
                 stats = get_stats_from_form()
             
             
-    return render_template("test.html",stats=stats,name=name,race=race,background=background,Class=Class,editing=editing,editing_stats=editing_stats,
-                           saved_characters=saved_characters,proficiency=proficiency)
+    return render_template(
+    "test.html",
+    stats=stats,
+    name=name,
+    race=race,
+    background=background,
+    Class=Class,
+    editing=editing,
+    editing_stats=editing_stats,
+    saved_characters=saved_characters,
+    proficiency=proficiency,
+    classes=[
+        "Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk",
+        "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard", "Artificer"
+    ]
+)
     
 def get_stats_from_form():
     return Attributes(
