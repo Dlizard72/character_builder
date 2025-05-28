@@ -40,5 +40,19 @@
       "Con": 7,
       "Cha": 14
     }
+  },
+  "Test1": {
+    "name": "Test1",
+    "race": "Human",
+    "Class": "aegfh",
+    "background": "None",
+    "stats": {
+      "Str": 10,
+      "Int": 10,
+      "Wis": 14,
+      "Dex": 17,
+      "Con": 9,
+      "Cha": 5
+    }
   }
 }

@@ -45,6 +45,7 @@ def home():
     Class = None
     editing = False
     editing_stats = False
+    proficiency = 2
     if request.method == "POST":
         action = request.form.get("action")
         name = request.form.get("name")
@@ -92,7 +93,8 @@ def home():
                 stats = get_stats_from_form()
             
             
-    return render_template("test.html",stats=stats,name=name,race=race,background=background,Class=Class,editing=editing,editing_stats=editing_stats,saved_characters=saved_characters)
+    return render_template("test.html",stats=stats,name=name,race=race,background=background,Class=Class,editing=editing,editing_stats=editing_stats,
+                           saved_characters=saved_characters,proficiency=proficiency)
     
 def get_stats_from_form():
     return Attributes(

@@ -125,6 +125,47 @@
 
       <button type="submit" name="action" value="change">Change Stats</button>
     </form>
+    <table>
+      <h2>Skills</h2>
+      <h3>Proficiency: {{ proficiency }}</h3>
+      <table>
+        <tr>
+          <td>
+            Acrobatics: {{ stats.skill_bonus("Acrobatics", proficiency) }}
+          </td>
+          <td>
+            Animal Handling: {{ stats.skill_bonus("Animal Handling",
+            proficiency) }}
+          </td>
+          <td>Arcana: {{ stats.skill_bonus("Arcana", proficiency) }}</td>
+          <td>Deception: {{ stats.skill_bonus("Deception", proficiency) }}</td>
+          <td>History: {{ stats.skill_bonus("History", proficiency) }}</td>
+          <td>Insight: {{ stats.skill_bonus("Insight", proficiency) }}</td>
+          <td>
+            Intimidation: {{ stats.skill_bonus("Intimidation", proficiency) }}
+          </td>
+          <td>
+            Investigation: {{ stats.skill_bonus("Investigation", proficiency) }}
+          </td>
+          <td>
+            Perception: {{ stats.skill_bonus("Perception", proficiency) }}
+          </td>
+          <td>
+            Performance: {{ stats.skill_bonus("Performance", proficiency) }}
+          </td>
+          <td>
+            Persuasion: {{ stats.skill_bonus("Persuasion", proficiency) }}
+          </td>
+          <td>Religion: {{ stats.skill_bonus("Religion", proficiency) }}</td>
+          <td>
+            Sleight of Hand: {{ stats.skill_bonus("Sleight of Hand",
+            proficiency) }}
+          </td>
+          <td>Stealth: {{ stats.skill_bonus("Stealth", proficiency) }}</td>
+          <td>Survival: {{ stats.skill_bonus("Survival", proficiency) }}</td>
+        </tr>
+      </table>
+    </table>
     {% endif %}
   </body>
 </html>
