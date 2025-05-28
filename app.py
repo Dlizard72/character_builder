@@ -102,7 +102,7 @@ def home():
     name=name,
     race=race,
     background=background,
-    Class=Class,
+   
     editing=editing,
     editing_stats=editing_stats,
     saved_characters=saved_characters,
