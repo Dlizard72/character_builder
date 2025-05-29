@@ -1,0 +1,53 @@
+{# macros.html #}
+{% macro hidden_stat(name, value) %}
+  <input type="hidden" name="{{ name }}" value="{{ value }}">
+{% endmacro %}
+
+{% macro stat_input(label, name, value) %}
+  <label>{{ label }}:
+    <input type="number" name="{{ name }}" value="{{ value }}">
+  </label>
+{% endmacro %}
+
+{% macro dropdown(label, options, selected) %}
+  <label for="{{ label }}">{{ label }}:</label>
+  <select name="{{ label }}" id="{{ label }}">
+    {% for option in options %}
+      <option value="{{ option }}" {% if option == selected %}selected{% endif %}>{{ option }}</option>
+    {% endfor %}
+  </select>
+{% endmacro %}
+
+{% macro checkbox(name, label, checked) %}
+  <label>
+    <input type="checkbox" name="{{ name }}" {% if checked %}checked{% endif %}>
+    {{ label }}
+  </label>
+{% endmacro %}
+
+{% macro all_stats_hidden(stats) %}
+  {{ hidden_stat("Str", stats.Str) }}
+  {{ hidden_stat("Int", stats.Int) }}
+  {{ hidden_stat("Wis", stats.Wis) }}
+  {{ hidden_stat("Dex", stats.Dex) }}
+  {{ hidden_stat("Con", stats.Con) }}
+  {{ hidden_stat("Cha", stats.Cha) }}
+{% endmacro %}
+
+{% macro stat_table_row(stats) %}
+<tr>
+  <td>Str Score: {{ stats.Str }}</td>
+  <td>Int Score: {{ stats.Int }}</td>
+  <td>Wis Score: {{ stats.Wis }}</td>
+  <td>Dex Score: {{ stats.Dex }}</td>
+  <td>Con Score: {{ stats.Con }}</td>
+  <td>Cha Score: {{ stats.Cha }}</td>
+</tr>
+{% endmacro %}
+
+{% macro character_identity_hidden(name, race, Class, background) %}
+  {{ hidden_stat("name", name) }}
+  {{ hidden_stat("race", race) }}
+  {{ hidden_stat("Class", Class) }}
+  {{ hidden_stat("background", background) }}
+{% endmacro %}

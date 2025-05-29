@@ -6,18 +6,18 @@
     "background": "None",
     "stats": {
       "Str": 10,
-      "Int": 8,
-      "Wis": 6,
-      "Dex": 15,
-      "Con": 7,
-      "Cha": 14,
+      "Int": 9,
+      "Wis": 12,
+      "Dex": 13,
+      "Con": 17,
+      "Cha": 15,
       "proficient_skills": []
     }
   },
   "Ariel": {
     "name": "Ariel",
-    "race": "dfa",
-    "Class": "Barbarian",
+    "race": "Human",
+    "Class": "Fighter",
     "background": "adf",
     "stats": {
       "Str": 13,

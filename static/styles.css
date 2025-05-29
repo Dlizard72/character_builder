@@ -1,67 +1,84 @@
 body {
-  font-family: "Georgia", serif;
-  background-color: #f8f1e5;
-  color: #2e2e2e;
-  padding: 20px;
-  max-width: 1000px;
-  margin: auto;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  font-family: "IM Fell English", serif;
+  background: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+  background-color: #fef3d7;
+  margin: 20px;
+  padding: 0;
+  color: #3e2c1c;
 }
 
 h1, h2, h3 {
-  color: #23005a;
   text-align: center;
+  font-family: "Cinzel Decorative", cursive;
+  color: #4b2e1e;
+  margin-bottom: 10px;
 }
 
 form {
+  background: #fcf5e5;
+  border: 2px solid #c6a76d;
+  padding: 20px;
   margin-bottom: 20px;
-  padding: 15px;
-  background-color: #f8fff9;
-  border: 1px solid #d8cbb3;
-  border-radius: 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-label, input, select, button {
+label {
   display: block;
-  margin: 8px 0;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #4b2e1e;
 }
 
-input[type="text"], input[type="number"], select {
-  width: 100%;
+input[type="text"],
+input[type="number"],
+select {
+  margin-top: 5px;
+  margin-bottom: 10px;
   padding: 6px;
-  border: 1px solid #c2b280;
-  border-radius: 4px;
-  background-color: #fffdf5;
+  width: 200px;
+  border-radius: 6px;
+  border: 1px solid #aa875f;
+  background-color: #fff6dc;
+}
+
+input[type="checkbox"] {
+  margin-left: 10px;
 }
 
 button {
-  background-color: #c26d6d;
-  color: white;
-  border: none;
-  padding: 8px 16px;
   margin-top: 10px;
-  border-radius: 5px;
+  padding: 8px 14px;
+  background-color: #8b5e3c;
+  border: 2px solid #3e2c1c;
+  color: white;
+  border-radius: 6px;
   cursor: pointer;
+  font-family: "Cinzel", serif;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 button:hover {
-  background-color: #a85858;
+  background-color: #a7714a;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 15px;
+  background: #fffdf4;
+  border: 2px solid #c6a76d;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 td {
-  border: 1px solid #cdb897;
-  padding: 6px 10px;
+  padding: 12px;
   text-align: center;
+  border-bottom: 1px solid #e7d7b4;
 }
 
-td:first-child {
-  font-weight: bold;
+tr:nth-child(even) {
+  background-color: #f8efd6;
 }

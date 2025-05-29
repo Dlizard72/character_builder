@@ -1,9 +1,11 @@
 <!DOCTYPE html>
+{% from "macros.html" import stat_input, hidden_stat, dropdown,
+checkbox,all_stats_hidden %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>Roll a Die</title>
-    <!--<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">-->
+    <!--link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">-->
   </head>
   <body>
     <h1>Character Sheet</h1>
@@ -16,105 +18,68 @@
       </select>
       <button type="submit" name="action" value="load">Load</button>
     </form>
+
     <form method="POST">
+      <!--prettier-ignore-->
       {% if not editing %}
+
       <p>Name: {{ name }}</p>
-      <input type="hidden" name="name" value="{{ name }}" />
+      {{ hidden_stat("name", name) }}
 
       <p>Race: {{ race }}</p>
-      <input type="hidden" name="race" value="{{ race }}" />
+      {{ hidden_stat("race", race) }}
 
       <p>Class: {{ Class }}</p>
-      <input type="hidden" name="Class" value="{{ Class }}" />
+      {{ hidden_stat("Class", Class) }}
 
       <p>Background: {{ background }}</p>
-      <input type="hidden" name="background" value="{{ background }}" />
+      {{ hidden_stat("background", background) }} {% if stats %}<br />
 
-      {% if stats %} {% if editing_stats %}
-      <label
-        >Str: <input type="number" name="Str" value="{{ stats.Str }}" /></label
-      ><br />
-      <label
-        >Int: <input type="number" name="Int" value="{{ stats.Int }}" /></label
-      ><br />
-      <label
-        >Wis: <input type="number" name="Wis" value="{{ stats.Wis }}" /></label
-      ><br />
-      <label
-        >Dex: <input type="number" name="Dex" value="{{ stats.Dex }}" /></label
-      ><br />
-      <label
-        >Con: <input type="number" name="Con" value="{{ stats.Con }}" /></label
-      ><br />
-      <label
-        >Cha: <input type="number" name="Cha" value="{{ stats.Cha }}" /></label
-      ><br />
+      {% if editing_stats %}<br />
+      <!--prettier-ignore-->
+      {{stat_input("Str", "Str", stats.Str)}}
+      {{stat_input("Int","Int",stats.Int)}} 
+      {{stat_input("Wis","Wis",stats.Wis)}} 
+      {{stat_input("Dex", "Dex", stats.Dex)}}
+      {{stat_input("Con", "Con",stats.Con)}} 
+      {{stat_input("Cha", "Cha",stats.Cha)}}
       <button type="submit" name="action" value="save">Save</button>
       {% else %}
-      <!-- show hidden inputs if not editing -->
-      <input type="hidden" name="Str" value="{{ stats.Str }}" />
-      <input type="hidden" name="Int" value="{{ stats.Int }}" />
-      <input type="hidden" name="Wis" value="{{ stats.Wis }}" />
-      <input type="hidden" name="Dex" value="{{ stats.Dex }}" />
-      <input type="hidden" name="Con" value="{{ stats.Con }}" />
-      <input type="hidden" name="Cha" value="{{ stats.Cha }}" />
-      {% endif %} {% endif %}
-
+      <!--prettier-ignore-->
+      {{ all_stats_hidden(stats) }} {% endif %}<br />
+      {% endif %}
       <button type="submit" name="action" value="edit">Edit</button>
       <button type="submit" name="action" value="save_character">
         Save Character
       </button>
 
       {% else %}
-      <!-- Editable fields when editing -->
-       <label for="armor">Armor:</label>
-      <select name="armor" id="armor">
-      {% for a in armors %}
-      <option value="{{ a }}" {% if a == armor %}selected{% endif %}>{{ a }}</option>
-        {% endfor %}
-      </select><br />
-       <label>
-    <input type="checkbox" name="shield" {% if shield %}checked{% endif %}>
-    Shield
-  </label>
-      <label>Name: <input type="text" name="name" value="{{ name }}" /></label
-      ><br />
-      <label>Race: <input type="text" name="race" value="{{ race }}" /></label
-      ><br />
-      <label for="Class">Class:</label>
-      <select name="Class" id="Class">
-      {% for c in classes %}
-      <option value="{{ c }}" {% if c == Class %} selected {% endif %}>{{ c }}</option>
-      {% endfor %}
-      </select><br />
-        Background:
-        <input type="text" name="background" value="{{ background }}" /></label
-      ><br />
-
+      <!--prettier-ignore-->
+      {{dropdown("armor", armors, armor) }} 
+      {{checkbox("shield","Shield", shield) }} 
+      {{stat_input("Name", "name", name) }} 
+      {{stat_input("Race", "race", race) }} 
+      {{dropdown("Class", classes, Class)}} 
+      {{stat_input("Background", "background", background) }} 
       {% if stats %}
-      <!-- Preserve stat values even while editing text fields -->
-      <input type="hidden" name="Str" value="{{ stats.Str }}" />
-      <input type="hidden" name="Int" value="{{ stats.Int }}" />
-      <input type="hidden" name="Wis" value="{{ stats.Wis }}" />
-      <input type="hidden" name="Dex" value="{{ stats.Dex }}" />
-      <input type="hidden" name="Con" value="{{ stats.Con }}" />
-      <input type="hidden" name="Cha" value="{{ stats.Cha }}" />
-      {% endif %}
 
-      <!-- ✅ Save button goes here -->
+      {{ all_stats_hidden(stats) }} 
+      {% endif %}
       <button type="submit" name="action" value="save">Save</button>
       {% endif %}
     </form>
 
     <h2>Attributes</h2>
     <form method="POST">
-  <input type="hidden" name="name" value="{{ name }}">
-  <input type="hidden" name="race" value="{{ race }}">
-  <input type="hidden" name="Class" value="{{ Class }}">
-  <input type="hidden" name="background" value="{{ background }}">
-  <input type="hidden" name="armor" value="{{ armor }}">
-  <button type="submit" name="action" value="roll">Roll</button>
-</form>
+      <!--prettier-ignore-->
+      {{ hidden_stat("name", name) }} 
+      {{ hidden_stat("race", race) }} 
+      {{hidden_stat("Class", Class) }}
+      {{ hidden_stat("background", background) }}
+      {{ hidden_stat("armor", armor) }}
+      <button type="submit" name="action" value="roll">Roll</button>
+    </form>
+
     {% if stats %}
     <table>
       <tr>
@@ -126,98 +91,74 @@
         <td>Cha Score: {{ stats.Cha }}</td>
       </tr>
     </table>
+
     <form method="POST">
-      <!-- Hidden fields to preserve stats -->
-      <input type="hidden" name="Str" value="{{ stats.Str }}" />
-      <input type="hidden" name="Int" value="{{ stats.Int }}" />
-      <input type="hidden" name="Wis" value="{{ stats.Wis }}" />
-      <input type="hidden" name="Dex" value="{{ stats.Dex }}" />
-      <input type="hidden" name="Con" value="{{ stats.Con }}" />
-      <input type="hidden" name="Cha" value="{{ stats.Cha }}" />
-
-      <!-- You can also preserve name/race/etc. if needed -->
-      <input type="hidden" name="name" value="{{ name }}" />
-      <input type="hidden" name="race" value="{{ race }}" />
-      <input type="hidden" name="Class" value="{{ Class }}" />
-      <input type="hidden" name="background" value="{{ background }}" />
-
+      <!--prettier-ignore-->
+      {{ hidden_stat("Str", stats.Str) }} 
+      {{ hidden_stat("Int", stats.Int) }} 
+      {{ hidden_stat("Wis", stats.Wis) }}
+      {{ hidden_stat("Dex", stats.Dex) }}
+      {{ hidden_stat("Con", stats.Con) }}
+      {{ hidden_stat("Cha", stats.Cha) }}
+      {{ hidden_stat("name", name) }}
+      {{ hidden_stat("race", race) }}
+      {{ hidden_stat("Class", Class) }}
+      {{ hidden_stat("background", background) }}
       <button type="submit" name="action" value="change">Change Stats</button>
     </form>
-    <table>
-      <h2>Skills</h2>
-      <h3>Proficiency: {{ proficiency }}</h3>
-      <table>
-        
-        <tr>
-          <form method="POST">
-  <input type="hidden" name="name" value="{{ name }}">
-  <input type="hidden" name="race" value="{{ race }}">
-  <input type="hidden" name="Class" value="{{ Class }}">
-  <input type="hidden" name="background" value="{{ background }}">
-  <input type="hidden" name="Str" value="{{ stats.Str }}">
-  <input type="hidden" name="Dex" value="{{ stats.Dex }}">
-  <input type="hidden" name="Con" value="{{ stats.Con }}">
-  <input type="hidden" name="Int" value="{{ stats.Int }}">
-  <input type="hidden" name="Wis" value="{{ stats.Wis }}">
-  <input type="hidden" name="Cha" value="{{ stats.Cha }}">
 
-  <td>
-    <label for="armor">Armor:</label>
-    <select name="armor" id="armor">
-      {% for a in armors %}
-        <option value="{{ a }}" {% if a == armor %}selected{% endif %}>{{ a }}</option>
-      {% endfor %}
-    </select>
-  </td>
-  <td>
-    <label>
-      <input type="checkbox" name="shield" {% if shield %}checked{% endif %}>
-      Shield Equipped (+2 AC)
-    </label>
-  </td>
-  <td>
-    <button type="submit" name="action" value="update_armor">Update AC</button>
-  </td>
-  <td>AC: {{ac}}</td>
-</form>
-          
-        </tr>
-        <tr>
-          <td>
-            Acrobatics: {{ stats.skill_bonus("Acrobatics", proficiency) }}
-          </td>
-          <td>
-            Animal Handling: {{ stats.skill_bonus("Animal Handling",
-            proficiency) }}
-          </td>
-          <td>Arcana: {{ stats.skill_bonus("Arcana", proficiency) }}</td>
-          <td>Deception: {{ stats.skill_bonus("Deception", proficiency) }}</td>
-          <td>History: {{ stats.skill_bonus("History", proficiency) }}</td>
-          <td>Insight: {{ stats.skill_bonus("Insight", proficiency) }}</td>
-          <td>
-            Intimidation: {{ stats.skill_bonus("Intimidation", proficiency) }}
-          </td>
-          <td>
-            Investigation: {{ stats.skill_bonus("Investigation", proficiency) }}
-          </td>
-          <td>
-            Perception: {{ stats.skill_bonus("Perception", proficiency) }}
-          </td>
-          <td>
-            Performance: {{ stats.skill_bonus("Performance", proficiency) }}
-          </td>
-          <td>
-            Persuasion: {{ stats.skill_bonus("Persuasion", proficiency) }}
-          </td>
-          <td>Religion: {{ stats.skill_bonus("Religion", proficiency) }}</td>
-          <td>
-            Sleight of Hand: {{ stats.skill_bonus("Sleight of Hand",
-            proficiency) }}
-          </td>
-          <td>Stealth: {{ stats.skill_bonus("Stealth", proficiency) }}</td>
-          <td>Survival: {{ stats.skill_bonus("Survival", proficiency) }}</td>
-        </tr>
-      </table>
+    <h2>Skills</h2>
+    <h3>Proficiency: {{ proficiency }}</h3>
+    <form method="POST">
+      <!--prettier-ignore-->
+      {{ hidden_stat("name", name) }}
+      {{ hidden_stat("race", race) }} 
+      {{ hidden_stat("Class", Class) }} 
+      {{ hidden_stat("background", background) }}
+      {{ hidden_stat("Str", stats.Str) }} 
+      {{ hidden_stat("Dex", stats.Dex) }} 
+      {{ hidden_stat("Con", stats.Con) }} 
+      {{ hidden_stat("Int", stats.Int) }} 
+      {{ hidden_stat("Wis", stats.Wis) }} 
+      {{ hidden_stat("Cha", stats.Cha) }} 
+      {{ dropdown("armor", armors, armor) }}
+      {{ checkbox("shield", "Shield Equipped(+2 AC)", shield) }}
+      <button type="submit" name="action" value="update_armor">
+        Update AC
+      </button>
+      <p>AC: {{ ac }}</p>
+    </form>
+
+    <table>
+      <tr>
+        <td>Acrobatics: {{ stats.skill_bonus("Acrobatics", proficiency) }}</td>
+        <td>
+          Animal Handling: {{ stats.skill_bonus("Animal Handling", proficiency)
+          }}
+        </td>
+        <td>Arcana: {{ stats.skill_bonus("Arcana", proficiency) }}</td>
+        <td>Deception: {{ stats.skill_bonus("Deception", proficiency) }}</td>
+        <td>History: {{ stats.skill_bonus("History", proficiency) }}</td>
+        <td>Insight: {{ stats.skill_bonus("Insight", proficiency) }}</td>
+        <td>
+          Intimidation: {{ stats.skill_bonus("Intimidation", proficiency) }}
+        </td>
+        <td>
+          Investigation: {{ stats.skill_bonus("Investigation", proficiency) }}
+        </td>
+        <td>Perception: {{ stats.skill_bonus("Perception", proficiency) }}</td>
+        <td>
+          Performance: {{ stats.skill_bonus("Performance", proficiency) }}
+        </td>
+        <td>Persuasion: {{ stats.skill_bonus("Persuasion", proficiency) }}</td>
+        <td>Religion: {{ stats.skill_bonus("Religion", proficiency) }}</td>
+        <td>
+          Sleight of Hand: {{ stats.skill_bonus("Sleight of Hand", proficiency)
+          }}
+        </td>
+        <td>Stealth: {{ stats.skill_bonus("Stealth", proficiency) }}</td>
+        <td>Survival: {{ stats.skill_bonus("Survival", proficiency) }}</td>
+      </tr>
     </table>
     {% endif %}
   </body>
