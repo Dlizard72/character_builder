@@ -74,3 +74,23 @@ hit_die_by_class = {
 def calculate_hp(dnd_class, con_mod):
     base_hit_die = hit_die_by_class.get(dnd_class, 8)  # default to d8 if unknown
     return base_hit_die + con_mod
+
+def calculate_ac(armor, dex_mod):
+    armor_ac = {
+        "None": 10 + dex_mod,
+        "Padded": 11 + dex_mod,
+        "Leather": 11 + dex_mod,
+        "Studded Leather": 12 + dex_mod,
+        "Hide": 12 + min(dex_mod, 2),
+        "Chain Shirt": 13 + min(dex_mod, 2),
+        "Scale Mail": 14 + min(dex_mod, 2),
+        "Breastplate": 14 + min(dex_mod, 2),
+        "Half Plate": 15 + min(dex_mod, 2),
+        "Ring Mail": 14,
+        "Chain Mail": 16,
+        "Splint": 17,
+        "Plate": 18,
+        "Mage Armor": 13 + dex_mod,
+        "Barkskin": max(16, 10 + dex_mod),  # Ensures AC is never below 16
+    }
+    return armor_ac.get(armor, 10 + dex_mod)

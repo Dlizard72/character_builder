@@ -67,6 +67,12 @@
 
       {% else %}
       <!-- Editable fields when editing -->
+       <label for="armor">Armor:</label>
+      <select name="armor" id="armor">
+      {% for a in armors %}
+      <option value="{{ a }}" {% if a == armor %}selected{% endif %}>{{ a }}</option>
+        {% endfor %}
+      </select><br />
       <label>Name: <input type="text" name="name" value="{{ name }}" /></label
       ><br />
       <label>Race: <input type="text" name="race" value="{{ race }}" /></label
@@ -98,8 +104,13 @@
 
     <h2>Attributes</h2>
     <form method="POST">
-      <button type="submit" name="action" value="roll">Roll</button>
-    </form>
+  <input type="hidden" name="name" value="{{ name }}">
+  <input type="hidden" name="race" value="{{ race }}">
+  <input type="hidden" name="Class" value="{{ Class }}">
+  <input type="hidden" name="background" value="{{ background }}">
+  <input type="hidden" name="armor" value="{{ armor }}">
+  <button type="submit" name="action" value="roll">Roll</button>
+</form>
     {% if stats %}
     <table>
       <tr>
@@ -135,8 +146,9 @@
         
         <tr>
           <td>HP: {{hp}}</td>
-          <td>AC:</td>
-          <td>Armor:</td>
+          <td>AC: {{ ac }}</td>
+          <td>Armor: {{ armor }}
+          <input type="hidden" name="armor" value="{{ armor }}" /></td>
           <td>Level: 1</td>
           
         </tr>
