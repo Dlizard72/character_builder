@@ -74,7 +74,7 @@
       <label for="Class">Class:</label>
       <select name="Class" id="Class">
       {% for c in classes %}
-      <option value="{{ c }}" {% if c == Class %}selected{% endif %}>{{ c }}</option>
+      <option value="{{ c }}" {% if c == Class %} selected {% endif %}>{{ c }}</option>
       {% endfor %}
       </select><br />
         Background:
@@ -132,6 +132,14 @@
       <h2>Skills</h2>
       <h3>Proficiency: {{ proficiency }}</h3>
       <table>
+        
+        <tr>
+          <td>HP: {{hp}}</td>
+          <td>AC:</td>
+          <td>Armor:</td>
+          <td>Level: 1</td>
+          
+        </tr>
         <tr>
           <td>
             Acrobatics: {{ stats.skill_bonus("Acrobatics", proficiency) }}

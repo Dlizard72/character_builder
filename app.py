@@ -49,12 +49,15 @@ def home():
     editing = False
     editing_stats = False
     proficiency = 2
+    Class = None
+    
     if request.method == "POST":
         action = request.form.get("action")
         name = request.form.get("name")
         race = request.form.get("race")
         background = request.form.get("background")
         Class = request.form.get("Class")
+        
         if action == "edit":
             editing = True
             stats = get_stats_from_form()
@@ -95,22 +98,21 @@ def home():
             if all(request.form.get(k) for k in ["Str", "Int", "Wis", "Dex", "Con", "Cha"]):
                 stats = get_stats_from_form()
             
-            
+    con_mod = stats.modifier("Con") if stats else 0
+    hp = calculate_hp(Class, con_mod)        
     return render_template(
     "test.html",
     stats=stats,
     name=name,
     race=race,
     background=background,
-   
+    Class=Class,
     editing=editing,
     editing_stats=editing_stats,
     saved_characters=saved_characters,
     proficiency=proficiency,
-    classes=[
-        "Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk",
-        "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard", "Artificer"
-    ]
+    classes=classes,
+    hp=hp
 )
     
 def get_stats_from_form():

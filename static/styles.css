@@ -11,14 +11,14 @@ body {
 }
 
 h1, h2, h3 {
-  color: #5a2a00;
+  color: #23005a;
   text-align: center;
 }
 
 form {
   margin-bottom: 20px;
   padding: 15px;
-  background-color: #fffef8;
+  background-color: #f8fff9;
   border: 1px solid #d8cbb3;
   border-radius: 8px;
 }
@@ -37,7 +37,7 @@ input[type="text"], input[type="number"], select {
 }
 
 button {
-  background-color: #c2a76d;
+  background-color: #c26d6d;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -47,7 +47,7 @@ button {
 }
 
 button:hover {
-  background-color: #a88a58;
+  background-color: #a85858;
 }
 
 table {
