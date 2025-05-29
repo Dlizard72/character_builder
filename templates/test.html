@@ -73,6 +73,10 @@
       <option value="{{ a }}" {% if a == armor %}selected{% endif %}>{{ a }}</option>
         {% endfor %}
       </select><br />
+       <label>
+    <input type="checkbox" name="shield" {% if shield %}checked{% endif %}>
+    Shield
+  </label>
       <label>Name: <input type="text" name="name" value="{{ name }}" /></label
       ><br />
       <label>Race: <input type="text" name="race" value="{{ race }}" /></label
@@ -145,11 +149,37 @@
       <table>
         
         <tr>
-          <td>HP: {{hp}}</td>
-          <td>AC: {{ ac }}</td>
-          <td>Armor: {{ armor }}
-          <input type="hidden" name="armor" value="{{ armor }}" /></td>
-          <td>Level: 1</td>
+          <form method="POST">
+  <input type="hidden" name="name" value="{{ name }}">
+  <input type="hidden" name="race" value="{{ race }}">
+  <input type="hidden" name="Class" value="{{ Class }}">
+  <input type="hidden" name="background" value="{{ background }}">
+  <input type="hidden" name="Str" value="{{ stats.Str }}">
+  <input type="hidden" name="Dex" value="{{ stats.Dex }}">
+  <input type="hidden" name="Con" value="{{ stats.Con }}">
+  <input type="hidden" name="Int" value="{{ stats.Int }}">
+  <input type="hidden" name="Wis" value="{{ stats.Wis }}">
+  <input type="hidden" name="Cha" value="{{ stats.Cha }}">
+
+  <td>
+    <label for="armor">Armor:</label>
+    <select name="armor" id="armor">
+      {% for a in armors %}
+        <option value="{{ a }}" {% if a == armor %}selected{% endif %}>{{ a }}</option>
+      {% endfor %}
+    </select>
+  </td>
+  <td>
+    <label>
+      <input type="checkbox" name="shield" {% if shield %}checked{% endif %}>
+      Shield Equipped (+2 AC)
+    </label>
+  </td>
+  <td>
+    <button type="submit" name="action" value="update_armor">Update AC</button>
+  </td>
+  <td>AC: {{ac}}</td>
+</form>
           
         </tr>
         <tr>

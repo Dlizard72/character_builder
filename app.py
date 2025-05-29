@@ -55,6 +55,7 @@ def home():
     "None", "Padded", "Leather", "Studded Leather", "Hide", "Chain Shirt",
     "Scale Mail", "Breastplate", "Half Plate", "Ring Mail", "Chain Mail",
     "Splint", "Plate", "Mage Armor", "Barkskin"]
+    shield = False
 
     
     if request.method == "POST":
@@ -64,6 +65,7 @@ def home():
         background = request.form.get("background")
         Class = request.form.get("Class")
         armor = request.form.get("armor")
+        shield = request.form.get("shield") == "on"
         
         if action == "edit":
             editing = True
@@ -88,7 +90,8 @@ def home():
                 "Class": Class,
                 "background": background,
                 "stats": stats,
-                "armor": armor
+                "armor": armor,
+                "shield": shield
                 }
             save_characters()
         elif action == "load":
@@ -102,15 +105,19 @@ def home():
                 background = char["background"]
                 stats = char["stats"]
                 armor = char.get("armor")
+                shield = char.get("shield", False)
         elif action == "change":
             editing_stats = True
             if all(request.form.get(k) for k in ["Str", "Int", "Wis", "Dex", "Con", "Cha"]):
                 stats = get_stats_from_form()
+        elif action == "update_armor":
+            stats = get_stats_from_form()
             
     con_mod = stats.modifier("Con") if stats else 0
     hp = calculate_hp(Class, con_mod)    
     dex_mod = stats.modifier("Dex") if stats else 0
-    ac = calculate_ac(armor, dex_mod)    
+    base_ac = calculate_ac(armor, dex_mod)
+    ac = base_ac + 2 if shield else base_ac   
     return render_template(
     "test.html",
     stats=stats,
@@ -126,6 +133,7 @@ def home():
     hp=hp,
     armor=armor,
     armors=armors,
+    shield=shield,
     ac=ac
 )
     
