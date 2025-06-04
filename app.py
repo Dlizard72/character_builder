@@ -35,8 +35,19 @@ def save_characters():
     with open(DATA_FILE, "w") as f:
         json.dump(to_save, f, indent=2)
 
+@app.route("/")
+def homepage():
+    return render_template("home.html")
 
-@app.route("/", methods=["GET", "Post"])
+@app.route("/maps")
+def maps_page():
+    return render_template("maps.html")  
+
+@app.route("/npcs")
+def npcs_page():
+    return render_template("npcs.html")
+
+@app.route("/test", methods=["GET", "Post"])
 def home():
     stats = None
     name = None
